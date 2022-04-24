@@ -3,42 +3,35 @@ import requests
 import lxml
 import manejador_json
 from datetime import datetime
-
 from bs4 import BeautifulSoup
-
-headers = {
-  'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36 QIHU 360SE'
-}
 
 def modulo_de_control():
     if arañador():
-          print("oli")
-          #Se llama al descargador y su proceso de limpieza
+          print("LINKS ACTUALIZADOS INICIA CALENDARIZADOR")
+          #Se llama al descargador
+          print("calendarizador...")
     else:
-       return "holi"
+       print("LA BASE DE DATOS, ESTA ACTUALIZADA Y LA COLECCIÓN SE MANTIENE ESTABLE")
 
 def arañador():
     if verficar_base():
-      url = manejador_json.obtener_valor("url")
-      f = requests.get(url, headers = headers)
-      lista_peliculas = []
-      soup = BeautifulSoup(f.content, 'lxml')
-      peliculas = soup.find('table', {'class': 'table'}).find_all('a')
-      pos_en_top = 0
       base_de_datos = open ('base_datos/links.txt','w')
       base_de_datos.write(str(datetime.today())+"\n")
-      for anchor in peliculas:
-          urls = 'https://www.rottentomatoes.com' + anchor['href']
-          lista_peliculas.append(urls)
-          pos_en_top += 1
-          url_pelicula = urls
-          pelicula_en_archivo = requests.get(url_pelicula, headers = headers)
-          pelicula_en_soup = BeautifulSoup(pelicula_en_archivo.content, 'lxml')
-          contenido_pelicula = pelicula_en_soup.find('div', {'class': 'movie_synopsis clamp clamp-6 js-clamp'}) 
-          print("AÑADIDO: "+urls)       
-          base_de_datos.write(str(pos_en_top) +' '+ urls+'\n')
-          #print('Movie info:' + contenido_pelicula.string.strip())
-      f.close()
+      referencias = open("links_para_buscar.txt")
+      link_a_buscar = referencias.readline()
+      peliculas = []
+      while link_a_buscar != '':
+            print("PELICULAS ESCANEADAS EN: " +link_a_buscar)
+            reqs = requests.get(link_a_buscar)
+            soup = BeautifulSoup(reqs.text, 'html.parser')
+            tabla = soup.find('table', {'class': 'table'}).find_all('a')
+
+            for pelicula in tabla:
+                  if pelicula['href'] not in peliculas:
+                        base_de_datos.write('https://www.rottentomatoes.com'+pelicula['href']+"\n")
+            link_a_buscar = referencias.readline()
+      base_de_datos.close()
+      referencias.close()
       return True
     else:
           return False

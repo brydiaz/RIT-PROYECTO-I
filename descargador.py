@@ -65,20 +65,20 @@ def coordinador():
     f = open('base_datos/links.txt','r')
     links = f.read().split('\n')
     cont = 0
+    len_links = len(links)//5
     for i in links:
-        if cont < 202:
+        if cont < len_links:
             base1.append(i)
-        elif 201 < cont < 404:
+        elif len_links < cont < len_links*2:
                 base2.append(i) 
-        elif 403 < cont < 606:
+        elif len_links*2 < cont < len_links*3:
                 base3.append(i)
-        elif 605 < cont < 808:
+        elif len_links*3 < cont < len_links*4:
                 base4.append(i)
-        elif 807 < cont < 1010:
+        elif len_links*4 < cont < len_links*5:
                 base5.append(i)    
         cont += 1
     for x in range(0, 5):
         escritor = threading.Thread(target=descargar, args=[x])
         escritor.start()
     
-coordinador()

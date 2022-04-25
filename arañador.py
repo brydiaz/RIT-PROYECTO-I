@@ -7,6 +7,7 @@ import os
 
 
 def modulo_de_control():
+      
     calendarizador()
 
 def arañador():
@@ -68,6 +69,7 @@ def calendarizador():
             
             
 def verificar_archivo_nuevo():
+
       directorio = 'base_datos/coleccion'
       contenido = os.listdir(directorio)
       links = open('base_datos/links.txt','r')
@@ -83,7 +85,6 @@ def verificar_archivo_nuevo():
             if nombre not in contenido:
                   print("NUEVO DETECTADO! EMPEZANDO DESCARGA DE "+ nombre)
                   descargador.descargar_info("https://www.rottentomatoes.com/m/"+i[:len(i)])
-                  print("https://www.rottentomatoes.com/m/"+i[:len(i)+'\n'])
                   control = True
       return control
       

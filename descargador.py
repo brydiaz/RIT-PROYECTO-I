@@ -4,6 +4,7 @@ import threading
 import requests
 import re
 from bs4 import BeautifulSoup
+import preprocesamiento
  
 descargados = []
 base1 = []
@@ -34,6 +35,10 @@ def descargar_info(url):
         f.write(descripcion)
         for i in informacion_final:
             f.write(i)
+        f.close()
+        texto_limpio = preprocesamiento.limpiar('base_datos/coleccion/'+nombre+'.txt')
+        f = open ('base_datos/coleccion/preprocesado/'+nombre+'.txt','w')
+        f.write(texto_limpio)
         f.close()
     except:
         print("Error en url")

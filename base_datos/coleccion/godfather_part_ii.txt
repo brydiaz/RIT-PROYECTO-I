@@ -1,7 +1,7 @@
 The compelling sequel to "The Godfather," contrasting the life of Corleone father and son. Traces the problems of Michael Corleone (Al Pacino) in 1958 and that of a young immigrant Vito Corleone (Robert De Niro) in 1917's Hell's Kitchen. Michael survives many misfortunes and Vito is introduced to a life of crime.
 R
-Drama,
-Crime
+Crime,
+Drama
 English
 Francis Ford Coppola
 Francis Ford Coppola

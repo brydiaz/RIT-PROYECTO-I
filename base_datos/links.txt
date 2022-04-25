@@ -1,4 +1,4 @@
-2022-04-24 19:52:16.854429
+2022-04-25 13:55:36.100690
 https://www.rottentomatoes.com/m/black_panther_2018
 https://www.rottentomatoes.com/m/avengers_endgame
 https://www.rottentomatoes.com/m/mission_impossible_fallout
@@ -599,7 +599,6 @@ https://www.rottentomatoes.com/m/we_are_still_here
 https://www.rottentomatoes.com/m/upgrade_2018
 https://www.rottentomatoes.com/m/eraserhead
 https://www.rottentomatoes.com/m/1021112-texas_chainsaw_massacre
-https://www.rottentomatoes.com/m/the_old_ways_2021
 https://www.rottentomatoes.com/m/halloween_2018
 https://www.rottentomatoes.com/m/the_witches
 https://www.rottentomatoes.com/m/arachnophobia

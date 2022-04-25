@@ -10,6 +10,7 @@ def modulo_de_control():
     calendarizador()
 
 def arañador():
+
       base_de_datos = open ('base_datos/links.txt','w')
       base_de_datos.write(str(datetime.today())+"\n")
       referencias = open("links_para_buscar.txt")
@@ -31,6 +32,7 @@ def arañador():
 
   
 def verficar_base():
+      
     base_de_datos = open ('base_datos/links.txt','r')   
     fecha_de_busqueda = base_de_datos.readline()
     
@@ -52,21 +54,37 @@ def verficar_base():
                 return False
             
 def calendarizador():
+
       if verficar_base():
             print('INICIANDO DESCARGA')
             arañador()
             descargador.coordinador()
       elif verificar_archivo_nuevo():
-            print("hs")
-      else:
-            print("LA BASE DE DATOS, ESTA ACTUALIZADA Y LA COLECCIÓN SE MANTIENE ESTABLE")
+            print("VERIFICADO ARCHIVOS NUEVOS")
+      
+      print("LA BASE DE DATOS, ESTA ACTUALIZADA Y LA COLECCIÓN SE MANTIENE ESTABLE")
             
-            directorio = 'base_datos/coleccion'
-            contenido = os.listdir(directorio)
-            print(contenido)
-
+            
+            
+            
 def verificar_archivo_nuevo():
-      print("verificar")
-
+      directorio = 'base_datos/coleccion'
+      contenido = os.listdir(directorio)
+      links = open('base_datos/links.txt','r')
+      link = links.readline()
+      link = links.readline()
+      nombre_links = []
+      while link != "":
+            nombre_links.append(link[33:].strip())
+            link = links.readline()
+      control = False
+      for i in nombre_links:
+            nombre = i[:len(i)] +'.txt'
+            if nombre not in contenido:
+                  print("NUEVO DETECTADO! EMPEZANDO DESCARGA DE "+ nombre)
+                  descargador.descargar_info("https://www.rottentomatoes.com/m/"+i[:len(i)])
+                  print("https://www.rottentomatoes.com/m/"+i[:len(i)+'\n'])
+                  control = True
+      return control
       
 modulo_de_control()

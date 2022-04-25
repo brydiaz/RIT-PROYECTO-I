@@ -1,17 +1,24 @@
 from email.mime import base
 import requests
 import lxml
+import os
 import manejador_json
 from datetime import datetime
 from bs4 import BeautifulSoup
+import descargador
+from concurrent.futures import thread
+from multiprocessing import parent_process
+import threading
+import random 
 
 def modulo_de_control():
     if arañador():
           print("LINKS ACTUALIZADOS INICIA CALENDARIZADOR")
           #Se llama al descargador
-          print("calendarizador...")
+          calendarizador()
     else:
        print("LA BASE DE DATOS, ESTA ACTUALIZADA Y LA COLECCIÓN SE MANTIENE ESTABLE")
+       calendarizador()
 
 def arañador():
     if verficar_base():
@@ -29,6 +36,7 @@ def arañador():
             for pelicula in tabla:
                   if pelicula['href'] not in peliculas:
                         base_de_datos.write('https://www.rottentomatoes.com'+pelicula['href']+"\n")
+                        peliculas.append(pelicula['href'])
             link_a_buscar = referencias.readline()
       base_de_datos.close()
       referencias.close()
@@ -56,5 +64,13 @@ def verficar_base():
             print("NO SE ACTUALIZA TODAVÍA LA BASE")
             return False
     base_de_datos.close()
+def calendarizador():
+      contenido = os.listdir('base_datos/coleccion/')
+      with open('base_datos/links.txt') as myfile:
+            lineas_totales = sum(1 for line in myfile)
+      if len(contenido) != lineas_totales:
+            f = open('base_datos/links.txt', 'r')
+            print('Iniciando descarga')
+            descargador.coordinador()
 
 modulo_de_control()
